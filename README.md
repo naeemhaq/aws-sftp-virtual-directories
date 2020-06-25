@@ -41,21 +41,42 @@ With logical directories you can customize how S3 bucket paths are visible to yo
 - Distribute files to multiple consumers without creating copies
 - Prevent S3 bucket names from being visible to SFTP end users for compliance/regulatory purposes
 
-The [CloudFormation template](sftp.yaml) is based on above blog but with some changes to the code that creates a role and S3 buckets with customized folder mapping. 
-
-## Steps to Run The Template
-
-## Manual Steps through AWS Web Console
-
-1. After creation of stack create two directories with exact names as below put some files for demo.
-- test
-- test2
-
-2. Once done the demo and before deleting the stack make sure that the S3 directory is empty from S3 web console
-
-
-[AWS SFTP With Logical Directories](https://aws.amazon.com/blogs/storage/using-aws-sftp-logical-directories-to-build-a-simple-data-distribution-service/)
+The [CloudFormation template](ccoe-sftp.yaml) is based on
+[AWS SFTP With Logical Directories Blog](https://aws.amazon.com/blogs/storage/using-aws-sftp-logical-directories-to-build-a-simple-data-distribution-service/) along with some changes to the code that creates a role and S3 buckets with customized folder mapping. 
 
 This is also a good blog for [Chroot and logical directories](https://aws.amazon.com/blogs/storage/simplify-your-aws-sftp-structure-with-chroot-and-logical-directories/)
 
+## Steps to Run The Template
+
+1. Download the [CloudFormation template](ccoe-sftp.yaml) and save it on your computer 
+3. Login to AWS managment console 
+4. Select CloudFormation Service from the Services 
+5. Clik Create Stack and upload the template file and click next. 
+6. Provide Stack name, this could be any name e.g. test-sftp-01
+7. you can leave the rest of the parameters to default or you can specify your own username and password and click next
+8. Leave the UserPublicKey parameter as is, this is not used but required to step through Lambda code conditions. 
+9. Click next again on the configure stack options page with no changes
+10. On the Review page select the checkbox to create Role and click Create Stack
+
+The above steps will start creation of a stack, to track progress click on events refresh page:
+
+Once the creation of stack is complete follow the manual steps.
+
+## Manual Steps through AWS Web Console
+
+1. Navigate to S3 Service and select the newly created S3 Bucket: ccoe-sftp-185299205377-ca-central-1
+2. Ceate two directories/folders with exact names as below and put some files for demo.
+- test
+- test2
+3. Upload demo files for display 
+
+## Test the service
+1. To Test the service navigate to Transfer Service 
+2. Click on the service 
+3. copy the endpoint name
+4. Using Filezilla or FTP from command prompt run connect to the service
+
+## Destroying the environment 
+To save cost after testing is done delete the stack but before deleting make sure that the S3 bucket is empty. 
+1. Once done the demo and before deleting the stack make sure that the S3 directory is empty from S3 web console
 
